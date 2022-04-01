@@ -37,7 +37,7 @@ Now, if you rerun the orginal function that uses good-guesser with new input, it
 Note that GoodGuesser does basic things to try to maintain decent performance:
 
 1. GoodGuesser will only reload the gg file if it has been modified
-1. GoodGuesser will only recalculate the regression on first run, or if the file has changed, or if the calling parameters have changed, or if the `:actual-value` flag has been specified and a new guess needs to be made.
+1. GoodGuesser will only recalculate the regression on first run, or if the file has changed, or if the calling parameters have changed, or if the `:actual-value` flag has been specified and a subsequent new guess needs to be made.
 
 You can get the raw parameters of the linear regression by calling good-guesser with the `:verbose` flag:
 
@@ -48,8 +48,8 @@ You can get the raw parameters of the linear regression by calling good-guesser 
 Other supported flags:
 
 - `visualizer`: Sometimes, when you have input data, it is in a format that makes human labeling difficult. Because of this you can add an additional multiline comment that will appear in the gg file with each example, to aid the human that needs to label the examples. You must supply a function which takes the input data, as well as the output guess as parameters and then prints out extra useful data for the human labeler that they can reference in the gg file.
-- `actual-value`: Lets you supply the expected correct output value- In this case good-guesser simply returns this value and adds the example to the gg file as a "human-labeled example". This function is useful for running validation tests, where a correct answer is know ahead of time.
-- `preview`: When true, runs good-guesser in a nondestructive mode, i.e. without modifying the gg file. Mainly for debugging the good-guesser library, itself.
+- `actual-value`: Lets you supply the expected correct output value- In this case good-guesser simply returns this value and adds the example to the gg file as a "human-labeled example". This function is useful for running validation tests, where a correct answer is known ahead of time.
+- `preview`: When true, runs good-guesser in a nondestructive mode, i.e. without modifying the gg file or updating the memory cache that GoodGuesser uses. Mainly for debugging the GoodGuesser library, itself.
 
 ## License
 
