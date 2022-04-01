@@ -4,7 +4,7 @@
 
 GoodGuesser can approximate a single numerical value using arbitrary input data, given human-labeled examples. It also requires you to provide one or more functions that can generate numbers from the input data that correlate with the desired answer. It then uses multiple linear regressions to estimate a value for new inputs.
 
-What makes GoodGuesser more interesting is the easy tooling, as shown in the video.
+What makes GoodGuesser unique is the easy tooling, as shown in the video.
 
 ## Usage
 
