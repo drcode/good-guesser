@@ -8,6 +8,8 @@
             [fbc-utils.debug :refer [let-dbg]]
             [clojure.java.io :as io]))
 
+;; The next four functions adapted from the book "Clojure For Data Science" by Henry Garner
+
 (defn add-bias [x]
   (ic/bind-columns (repeat (ic/nrow x) 1) x))
 
