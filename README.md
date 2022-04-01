@@ -28,7 +28,7 @@ Then, simply call `good-guesser` and pass in an arbitrary keyword name, the inpu
 
 The input data can be of any clojure type or structure- Keep in mind it should be reasonable in size, as it will be stored long term and printed. If your input data is too big for this, you should first think about how to slim it down. Note that you will need to be able to create human-labeled examples by inspecting the input data. (If this is difficult in your case, there is a flag I'll discuss later called `:visualizer` that may help.)
 
-The expectation of good-guesser is that it will be call many times with the same keyword name (likely from only a single line of code in your program). Then, look for the `.gg` file created for your program, using the keyword name. This will contain up to 20 guesses that good-guesser has seen. If it sees additional examples it will ignore them.
+The expectation of good-guesser is that it will be called many times with the same keyword name (likely from only a single line of code in your program). Then, look for the `.gg` file created for your program, using the keyword name. This will contain up to 20 guesses that good-guesser has seen. If it sees additional examples it will ignore them. (You can always label the examples, as discussed below, to have good guesser add additional unlabeled examples to the file. There is no limit on labeled examples)
 
 In the `.gg` file, replace guesses shown with human labeled values, based on your own human input.
 
