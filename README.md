@@ -4,6 +4,8 @@
 
 GoodGuesser can approximate a single numerical value using arbitrary input data, given human-labeled examples. It also requires you to provide one or more functions that can generate numbers from the input data that correlate with the desired answer. It then uses multiple linear regressions to estimate a value for new inputs.
 
+What makes GoodGuesser more interesting is the easy tooling, as shown in the video.
+
 ## Usage
 
 The easiest way to learn how to use GoodGuesser is to watch my video: https://www.youtube.com/watch?v=2SFNbiurWhc
@@ -49,6 +51,6 @@ Other supported flags:
 - `actual-value`: Lets you supply the expected correct output value- In this case good-guesser simply returns this value and adds the example to the gg file as a "human-labeled example". This function is useful for running validation tests, where a correct answer is know ahead of time.
 - `preview`: When true, runs good-guesser in a nondestructive mode, i.e. without modifying the gg file. Mainly for debugging the good-guesser library, itself.
 
-##License
+## License
 
 Distributed under the Eclipse Public License 1.0
