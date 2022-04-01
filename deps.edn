@@ -1,0 +1,3 @@
+{:deps {snek                   {:local/root "../snek"}
+        fbc-utils/fbc-utils    {:local/root "../fbc-utils"}
+        incanter/incanter-core {:mvn/version "1.9.3"}}}
