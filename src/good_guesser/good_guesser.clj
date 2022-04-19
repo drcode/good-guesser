@@ -1,12 +1,23 @@
 (ns good-guesser.good-guesser
   (:require [incanter.stats :as is]
             [incanter.core :as ic]
-            [fbc-utils.core :as ut]
             [clojure.string :as st]
             [clojure.pprint :as pp]
             [clojure.edn :as edn]
-            [fbc-utils.debug :refer [let-dbg]]
             [clojure.java.io :as io]))
+
+(defmacro forv [[item items] & body]
+  `(loop [items# ~items
+          acc#   []]
+     (if (seq items#)
+       (recur (rest items#)
+              (conj acc#
+                    (let [~item (first items#)]
+                      ~@body)))
+       acc#)))
+
+(defn exists [nam]
+  (.exists (io/file nam)))
 
 ;; The next four functions adapted from the book "Clojure For Data Science" by Henry Garner
 
@@ -59,7 +70,7 @@
                 actual-value
                 raw-input]}             params
         fname                           (file-name nam)
-        file-exists                     (ut/exists fname)
+        file-exists                     (exists fname)
         file-modified                   (and file-exists (not= (.lastModified (io/file fname)) last-modified))
         input-funs-changed              (or (not= input-funs input-funs-cached) (not= visualizer visualizer-cached))
         old-examples-out-of-date        (or file-modified input-funs-changed)
@@ -82,15 +93,15 @@
   (if old-examples-out-of-date
     (let [{:keys [nam]} params
           fname         (file-name nam)
-          examples      (ut/forv [[k v] (partition 2 (if (ut/exists fname)
-                                                       (edn/read-string (str \[ (slurp fname) \]))
-                                                       []))]
-                                 (let [labeled (not (symbol? v))]
-                                   {:input   k
-                                    :labeled labeled
-                                    :output  (if labeled
-                                               v
-                                               (edn/read-string (apply str (rest (name v)))))}))
+          examples      (forv [[k v] (partition 2 (if (exists fname)
+                                                    (edn/read-string (str \[ (slurp fname) \]))
+                                                    []))]
+                              (let [labeled (not (symbol? v))]
+                                {:input   k
+                                 :labeled labeled
+                                 :output  (if labeled
+                                            v
+                                            (edn/read-string (apply str (rest (name v)))))}))
           labeled       (filter :labeled examples)]
       (update bundle :cache-entry merge
               {:examples      examples
@@ -157,12 +168,12 @@
                   regression]} cache-entry]
       (assoc-in bundle
                 [:cache-entry :examples]
-                (ut/forv [{:keys [labeled
-                                  input]
-                           :as   example} examples]
-                         (if (not labeled)
-                           (assoc example :output (estimate regression (apply-inputs bundle input)))
-                           example))))
+                (forv [{:keys [labeled
+                               input]
+                        :as   example} examples]
+                      (if (not labeled)
+                        (assoc example :output (estimate regression (apply-inputs bundle input)))
+                        example))))
     bundle))
 
 (defn calculate-new-guess [{:keys [cache-entry
